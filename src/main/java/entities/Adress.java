@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,6 +20,11 @@ public class Adress {
     @NotNull
     @Column(name = "additionalinfo", nullable = false, length = 45)
     private String additionalinfo;
+
+    @MapsId("id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "zipcode", nullable = false)
+    private Cityinfo cityinfo;
 
     public Integer getId() {
         return id;
