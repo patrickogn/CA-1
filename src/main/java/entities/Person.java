@@ -57,6 +57,7 @@ public class Person {
     }
 
     public Person(String email, String gender, Integer age, String firstName, String lastName, Adress adress, List<String> adresses, List<String> hobbys, List<String> phonenumbers) {
+        this.id = 0;
         this.email = email;
         this.gender = gender;
         this.age = age;
@@ -69,6 +70,7 @@ public class Person {
     }
 
     public Person(String email, String gender, Integer age, String firstName, String lastName, Adress adress) {
+        this.id = 0;
         this.email = email;
         this.gender = gender;
         this.age = age;
