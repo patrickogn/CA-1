@@ -37,8 +37,9 @@ public class PersonHasHobbyFacade {
         try
         {
             TypedQuery<PersonHasHobby> query = em.createQuery("select p from PersonHasHobby p", PersonHasHobby.class);
-            List<PersonHasHobby> peopleandtheirhobbies = query.getResultList();
-            return PersonDTO.getDTOs(peopleandtheirhobbies);
+            List<PersonHasHobby> peopleandhobbies = query.getResultList();
+            return PersonHasHobbyDTO.getphhDTOs(peopleandhobbies);
+
         }
         finally{
             em.close();
@@ -48,12 +49,11 @@ public class PersonHasHobbyFacade {
     public int countAll(){
         EntityManager em = getEntityManager();
         int count;
-        TypedQuery<Integer> query = em.createQuery("select count(p) from Person p", Integer.class);
+        TypedQuery<Integer> query = em.createQuery("select count(p) from PersonHasHobby p", Integer.class);
         count = query.getSingleResult();
         em.close();
         return count;
     }
-
 
     public PersonDTO createPerson(Person person){
         EntityManager em = getEntityManager();

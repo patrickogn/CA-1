@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.PersonHasHobbyDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,30 @@ public class PersonHasHobby {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "hobby_id", nullable = false)
     private Hobby hobby;
+
+    public PersonHasHobby() {
+    }
+
+    public PersonHasHobby(PersonHasHobbyId id, Person person, Hobby hobby) {
+        this.id = id;
+        this.person = person;
+        this.hobby = hobby;
+    }
+
+    public PersonHasHobby(Person person, Hobby hobby) {
+        this.person = person;
+        this.hobby = hobby;
+    }
+
+    public PersonHasHobby(PersonHasHobbyDTO p) {
+
+    }
+
+    public PersonHasHobby(PersonHasHobby p) {
+        p.hobby = p.getHobby();
+        p.id = p.getId();
+        p.person = p.getPerson();
+    }
 
     public PersonHasHobbyId getId() {
         return id;
