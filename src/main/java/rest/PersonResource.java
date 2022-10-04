@@ -35,4 +35,11 @@ public class PersonResource {
         List<PersonDTO> personDTOList = FACADE.getAll();
         return GSON.toJson(personDTOList);
     }
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAll(){
+        List<PersonDTO> personDTOList = FACADE.getAll();
+        return GSON.toJson(personDTOList);
+    }
 }
