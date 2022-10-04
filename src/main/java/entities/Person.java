@@ -3,6 +3,8 @@ package entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "person")
@@ -41,6 +43,40 @@ public class Person {
     @JoinColumn(name = "adress_id", nullable = false)
     private Adress adress;
 
+    @ElementCollection
+    private List<String> adresses;
+
+    @ElementCollection
+    private List<String> hobbys;
+
+    @ElementCollection
+    private List<String> phonenumbers;
+
+
+    public Person() {
+    }
+
+    public Person(String email, String gender, Integer age, String firstName, String lastName, Adress adress, List<String> adresses, List<String> hobbys, List<String> phonenumbers) {
+        this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.adress = adress;
+        this.adresses = adresses;
+        this.hobbys = hobbys;
+        this.phonenumbers = phonenumbers;
+    }
+
+    public Person(String email, String gender, Integer age, String firstName, String lastName, Adress adress) {
+        this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.adress = adress;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -53,48 +89,64 @@ public class Person {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getGender() {
         return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public Integer getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public Adress getAdress() {
         return adress;
     }
 
-    public void setAdress(Adress adress) {
-        this.adress = adress;
+    public List<String> getAdresses() {
+        return adresses;
     }
 
+    public List<String> getHobbys() {
+        return hobbys;
+    }
+
+    public List<String> getPhonenumbers() {
+        return phonenumbers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return Objects.equals(getId(), person.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", adress=" + adress +
+                ", adresses=" + adresses +
+                ", hobbys=" + hobbys +
+                ", phonenumbers=" + phonenumbers +
+                '}';
+    }
 }

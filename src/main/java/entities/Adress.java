@@ -26,6 +26,15 @@ public class Adress {
     @JoinColumn(name = "zipcode", nullable = false)
     private Cityinfo cityinfo;
 
+    public Adress() {
+    }
+
+    public Adress(String street, String additionalinfo, Cityinfo cityinfo) {
+        this.street = street;
+        this.additionalinfo = additionalinfo;
+        this.cityinfo = cityinfo;
+    }
+
     public Integer getId() {
         return id;
     }

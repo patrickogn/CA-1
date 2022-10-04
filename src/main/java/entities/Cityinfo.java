@@ -19,6 +19,15 @@ public class Cityinfo {
     @Column(name = "city", nullable = false, length = 45)
     private String city;
 
+    public Cityinfo(Integer id, String city) {
+        this.id = id;
+        this.city = city;
+    }
+
+    public Cityinfo() {
+
+    }
+
     public Integer getId() {
         return id;
     }
