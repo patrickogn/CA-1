@@ -99,4 +99,9 @@ public class PersonHasHobbyDTO implements Serializable {
         personHasHobbies.forEach(p -> personHasHobbyDTOList.add(new PersonHasHobbyDTO(p)));
         return personHasHobbyDTOList;
     }
+    public static List<PersonHasHobbyDTO> getSpeceficHobbies(List<PersonHasHobby> personHasHobbies){
+        List<PersonHasHobbyDTO> personHasHobbyDTOList = new ArrayList<>();
+        personHasHobbies.forEach(p -> personHasHobbyDTOList.add(new PersonHasHobbyDTO(p)));
+        return personHasHobbyDTOList;
+    }
 }

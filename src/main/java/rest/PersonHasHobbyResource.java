@@ -34,4 +34,11 @@ public class PersonHasHobbyResource {
         List<PersonHasHobbyDTO> personHasHobbyDTOList = FACADE.getAll();
         return GSON.toJson(personHasHobbyDTOList);
     }
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPeopleFromHobbyId(@PathParam("id")int id) {
+        List<PersonHasHobbyDTO> personHasHobbyDTOList1 = FACADE.PeopleWithGivenHobby(id);
+        return GSON.toJson(personHasHobbyDTOList1);
+    }
 }

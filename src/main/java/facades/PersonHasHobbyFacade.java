@@ -2,12 +2,13 @@ package facades;
 
 import dtos.PersonDTO;
 import dtos.PersonHasHobbyDTO;
-import entities.Person;
 import entities.PersonHasHobby;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.WebApplicationException;
 import java.util.List;
 
 public class PersonHasHobbyFacade {
@@ -27,13 +28,13 @@ public class PersonHasHobbyFacade {
         return instance;
     }
 
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
+    private EntityManager getEntityManager(EntityManagerFactory emf) {
+        return PersonHasHobbyFacade.emf.createEntityManager();
     }
 
     public List<PersonHasHobbyDTO> getAll()
     {
-        EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager(emf);
         try
         {
             TypedQuery<PersonHasHobby> query = em.createQuery("select p from PersonHasHobby p", PersonHasHobby.class);
@@ -46,24 +47,53 @@ public class PersonHasHobbyFacade {
         }
     }
 
+    public List<PersonHasHobbyDTO> PeopleWithGivenHobby(int hobbyid)
+    {
+        EntityManager em = getEntityManager(emf);
+        try
+        {
+            Query query = em.createQuery("select p.person from PersonHasHobby p where p.hobby =:hobby");
+            //TypedQuery<PersonHasHobby> query = em.createQuery("select p from PersonHasHobby p", PersonHasHobby.class);
+            List<PersonHasHobby> peopleandhobbies = query.getResultList();
+            return PersonHasHobbyDTO.getSpeceficHobbies(peopleandhobbies);
+        }
+        finally{
+            em.close();
+        }
+    }
+
     public int countAll(){
-        EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager(emf);
         int count;
         TypedQuery<Integer> query = em.createQuery("select count(p) from PersonHasHobby p", Integer.class);
         count = query.getSingleResult();
         em.close();
         return count;
     }
+}
 
-    public PersonDTO createPerson(Person person){
-        EntityManager em = getEntityManager();
+//    public List<PersonDTO> getPeopleWithHobby(int hobbyid) {
+//        EntityManager em = getEntityManager();
+//        int count;
+//        TypedQuery<Integer> query = em.createQuery("select count(p) from Person p", Integer.class);
+//        count = query.getSingleResult();
+//        em.close();
+//        return count;}}
+
+
+/*        EntityManager em = getEntityManager(emf);
         try {
-            em.getTransaction().begin();
-            em.persist(person);
-            em.getTransaction().commit();
+            // PersonHasHobby personHasHobby = em.find(PersonHasHobby.class, hobbyid);
+            Query query = em.createQuery("select p from PersonHasHobby p where p.hobby=;" + hobbyid);
+            List<PersonDTO> peoplewithhobby = query.getResultList();
+            if (peoplewithhobby != null) {
+                return peoplewithhobby;
+            }
+            throw new WebApplicationException("Hobby with id  =" + hobbyid + "does not exist");
+
         } finally {
             em.close();
         }
-        return new PersonDTO(person);
-    }
-}
+    }*/
+
+
