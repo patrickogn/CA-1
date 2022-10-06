@@ -1,13 +1,12 @@
 package facades;
 
-import dtos.PersonDTO;
 import dtos.PhoneDTO;
-import entities.Person;
 import entities.Phone;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.WebApplicationException;
 import java.util.List;
 
 public class PhoneFacade
@@ -25,15 +24,15 @@ public class PhoneFacade
         return instance;
     }
 
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
+    private EntityManager getEntityManager(EntityManagerFactory emf) {
+        return PhoneFacade.emf.createEntityManager();
     }
 
 
 
     public List<PhoneDTO> getAll()
     {
-        EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager(emf);
         try
         {
             TypedQuery<Phone> query = em.createQuery("select p from Phone p", Phone.class);
@@ -45,9 +44,23 @@ public class PhoneFacade
         }
     }
 
+    public PhoneDTO getPhoneById(int id) {
+        EntityManager em = getEntityManager(emf);
+        try {
+            Phone phone = em.find(Phone.class, id);
+            if (phone != null) {
+                return new PhoneDTO(phone);
+            }
+            throw new WebApplicationException("PhoneNumber =" + id + "does not exist");
+
+        } finally {
+            em.close();
+        }
+    }
+
 
     public PhoneDTO createPhone(Phone phone){
-        EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager(emf);
         try {
             em.getTransaction().begin();
             em.persist(phone);

@@ -144,6 +144,22 @@ public class PersonDTO implements Serializable {
             this.cityinfo = cityinfo;
         }
 
+        public AdressDTO(Adress a)
+        {
+            this.id = a.getId();
+            this.street = a.getStreet();
+            this.additionalinfo = a.getAdditionalinfo();
+            this.cityinfo = getCityinfo();
+
+        }
+
+        public static List<AdressDTO> getDTOs(List<Adress> adresses)
+        {
+            List<AdressDTO> adressDTOList = new ArrayList<>();
+            adresses.forEach(a -> adressDTOList.add(new AdressDTO(a)));
+            return adressDTOList;
+        }
+
         public Integer getId() {
             return id;
         }

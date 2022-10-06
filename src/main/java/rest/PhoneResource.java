@@ -35,4 +35,12 @@ public class PhoneResource
         List<PhoneDTO> phoneDTOList = FACADE.getAll();
         return GSON.toJson(phoneDTOList);
     }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPhoneById(@PathParam("id")int id){
+        PhoneDTO phoneDTO = FACADE.getPhoneById(id);
+        return GSON.toJson(phoneDTO);
+    }
 }

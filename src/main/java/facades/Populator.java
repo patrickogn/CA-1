@@ -34,6 +34,8 @@ public class Populator {
 
         PersonFacade pf = PersonFacade.getInstance(emf);
 
+
+
         Cityinfo cityinfo = new Cityinfo(3760,"Gudhjem");
         Adress adress = new Adress("joboland","7,2,8" ,cityinfo);
 

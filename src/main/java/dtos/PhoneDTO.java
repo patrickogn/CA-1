@@ -4,12 +4,17 @@ import entities.Person;
 import entities.PersonHasHobby;
 import entities.Phone;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.ws.rs.WebApplicationException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static org.eclipse.persistence.jpa.JpaHelper.getEntityManager;
 
 /**
  * A DTO for the {@link entities.Phone} entity
@@ -25,20 +30,13 @@ public class PhoneDTO implements Serializable
     private final Person person;
 
 
+
     public PhoneDTO(Integer id, String description, Person person)
     {
         this.id = id;
         this.description = description;
         this.person = person;
     }
-
-//    public PhoneDTO(Phone p)
-//    {
-//        this.id = p.getId();
-//        this.description = p.getDescription();
-//        this.person = p.getPerson();
-//
-//    }
 
     public PhoneDTO(Phone phone) {
         this.id = phone.getId();
@@ -53,7 +51,6 @@ public class PhoneDTO implements Serializable
         return phoneDTOList;
     }
 
-
     public Integer getId()
     {
         return id;
@@ -63,11 +60,6 @@ public class PhoneDTO implements Serializable
     {
         return description;
     }
-
-    //public PersonInnerDTO getPerson()
-//    {
-//        return person;
-//    }
 
     @Override
     public boolean equals(Object o)
@@ -345,14 +337,6 @@ public class PhoneDTO implements Serializable
                             "city = " + city + ")";
                 }
             }
-
-
-
-//            public static List<PhoneDTO> getPhonedtos(List<Phone> phones){
-//                List<PhoneDTO> phoneDTOList = new ArrayList<>();
-//                phones.forEach(p -> phoneDTOList.add(new PhoneDTO(p)));
-//                return phoneDTOList;
-//            }
         }
     }
 }
