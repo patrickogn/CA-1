@@ -34,14 +34,14 @@ public class AdressFacade
         return emf.createEntityManager();
     }
 
-    public List<AdressDTO> getAllHobbies()
+    public List<AdressDTO> getAllAdresses()
     {
         EntityManager em = getEntityManager();
         try
         {
             TypedQuery<Adress> query = em.createQuery("select a from Adress a", Adress.class);
             List<Adress> adresses = query.getResultList();
-            return PersonDTO.AdressDTO.getDTOs(adresses);
+            return AdressDTO.getDTOs(adresses);
         }
         finally{
             em.close();
