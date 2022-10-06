@@ -25,7 +25,7 @@ public class PersonResource {
         return "Hello, Person World!";
     }
 
-
+    //h
     @GET
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
