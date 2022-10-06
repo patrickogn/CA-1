@@ -1,4 +1,4 @@
-package rest;
+/*package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,4 +42,4 @@ public class RenameMeResource {
         System.out.println(rmdto);
         return Response.ok().entity(rmdto).build();
     }
-}
+}*/
