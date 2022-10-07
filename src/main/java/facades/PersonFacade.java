@@ -3,8 +3,10 @@ package facades;
 import dtos.CityinfoDTO;
 import dtos.PersonDTO;
 import dtos.PersonDTO;
+import dtos.PersonHasHobbyDTO;
 import entities.Cityinfo;
 import entities.Person;
+import entities.PersonHasHobby;
 import entities.RenameMe;
 import utils.EMF_Creator;
 
@@ -78,6 +80,18 @@ public class PersonFacade
             query.setParameter("zipcode",zipcode);
             List<Person> cityinfos = query.getResultList();
             return PersonDTO.getDTOs(cityinfos);
+        } finally {
+            em.close();
+        }
+    }
+    public List<PersonHasHobbyDTO> getPeopleWithGivenHobby(int hobbyid) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<PersonHasHobby> query = em.createQuery("select p from PersonHasHobby p where p.hobby.id = :hobbyid", PersonHasHobby.class);
+           // TypedQuery<Person> query = em.createQuery("select p from PersonHasHobby p where p.hobby.id = :hobbyid", Person.class);
+            query.setParameter("hobbyid",hobbyid);
+            List<PersonHasHobby> personList = query.getResultList();
+            return PersonHasHobbyDTO.getphhDTOs(personList);
         } finally {
             em.close();
         }
