@@ -25,11 +25,11 @@ public class CityInfoResource
         return "Hello, Hobby World!";
     }
 
-    @GET
+/*    @GET
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllZips(){
         List<CityinfoDTO> cityinfoDTOList = FACADE.getAllZips();
         return GSON.toJson(cityinfoDTOList);
-    }
+    }*/
 }

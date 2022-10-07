@@ -34,7 +34,7 @@ public class CityInfoFacade
     }
 
 
-    public List<CityinfoDTO> getAllZips() {
+   /* public List<CityinfoDTO> getAllZips() {
         EntityManager em = getEntityManager(emf);
         try {
             TypedQuery<Cityinfo> query = em.createQuery("select c from Cityinfo c", Cityinfo.class);
@@ -43,6 +43,6 @@ public class CityInfoFacade
         } finally {
             em.close();
         }
-    }
+    }*/
 
 }

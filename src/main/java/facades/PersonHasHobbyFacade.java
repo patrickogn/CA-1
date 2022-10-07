@@ -52,8 +52,7 @@ public class PersonHasHobbyFacade {
         EntityManager em = getEntityManager(emf);
         try
         {
-            Query query = em.createQuery("select p.person from PersonHasHobby p where p.hobby =:hobby");
-            //TypedQuery<PersonHasHobby> query = em.createQuery("select p from PersonHasHobby p", PersonHasHobby.class);
+            Query query = em.createQuery("select person.id from PersonHasHobby WHERE hobby.id = :hobbyid", PersonHasHobby.class);
             List<PersonHasHobby> peopleandhobbies = query.getResultList();
             return PersonHasHobbyDTO.getSpeceficHobbies(peopleandhobbies);
         }

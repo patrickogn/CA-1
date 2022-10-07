@@ -1,7 +1,9 @@
 package facades;
 
+import dtos.CityinfoDTO;
 import dtos.PersonDTO;
 import dtos.PersonDTO;
+import entities.Cityinfo;
 import entities.Person;
 import entities.RenameMe;
 import utils.EMF_Creator;
@@ -67,5 +69,17 @@ public class PersonFacade
             em.close();
         }
         return new PersonDTO(person);
+    }
+
+    public List<PersonDTO> getPeopleWithZip(int zipcode) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Person> query = em.createQuery("select p from Person p where p.adress.cityinfo.id = :zipcode", Person.class);
+            query.setParameter("zipcode",zipcode);
+            List<Person> cityinfos = query.getResultList();
+            return PersonDTO.getDTOs(cityinfos);
+        } finally {
+            em.close();
+        }
     }
 }

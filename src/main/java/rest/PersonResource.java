@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.PersonDTO;
+import dtos.PhoneDTO;
 import facades.PersonFacade;
 import utils.EMF_Creator;
 
@@ -31,6 +32,13 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAll(){
         List<PersonDTO> personDTOList = FACADE.getAll();
+        return GSON.toJson(personDTOList);
+    }
+    @GET
+    @Path("{zipcode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPhoneById(@PathParam("zipcode")int zipcode){
+        List<PersonDTO> personDTOList = FACADE.getPeopleWithZip(zipcode);
         return GSON.toJson(personDTOList);
     }
 }
