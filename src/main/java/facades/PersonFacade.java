@@ -51,15 +51,16 @@ public class PersonFacade
     }
     }
 
-    public int countAll(){
+    public long countAll(int hobbyid){
         EntityManager em = getEntityManager();
-        int count;
-        TypedQuery<Integer> query = em.createQuery("select count(p) from Person p", Integer.class);
+        long count;
+        TypedQuery<Long> query = em.createQuery("select count(p) from PersonHasHobby p where p.hobby.id= :hobbyid", Long.class);
+        query.setParameter("hobbyid",hobbyid);
         count = query.getSingleResult();
         em.close();
         return count;
     }
-
+  //  select p from PersonHasHobby p where p.hobby.id = :hobbyid", PersonHasHobby.class
 
     public PersonDTO createPerson(Person person){
         EntityManager em = getEntityManager();

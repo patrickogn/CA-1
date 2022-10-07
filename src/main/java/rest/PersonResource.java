@@ -52,4 +52,11 @@ public class PersonResource {
         List<PersonHasHobbyDTO> personDTOList = FACADE.getPeopleWithGivenHobby(hobbyid);
         return GSON.toJson(personDTOList);
     }
+    @GET
+    @Path("counthobby/{hobbyid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getHobbyCountById(@PathParam("hobbyid")int hobbyid){
+        long peoplewithgivenhobby = FACADE.countAll(hobbyid);
+        return GSON.toJson(peoplewithgivenhobby);
+    }
 }
